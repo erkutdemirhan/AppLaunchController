@@ -5,4 +5,6 @@
     <string name="list_of_apps">List Of Installed Apps</string>
     <string name="description">Click on any app to add to/remove from the black list</string>
     <string name="in_blacklist">In Blacklist</string>
+    <string name="warning">Warning</string>
+    <string name="msg_accessibility">Please enable accessibility for the AppLaunchController in order to start do not disturb mode</string>
 </resources>
