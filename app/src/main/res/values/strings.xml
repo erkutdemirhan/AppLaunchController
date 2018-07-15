@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AppLaunchController</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="list_of_apps">List Of Installed Apps</string>
+    <string name="description">Click on any app to add to/remove from the black list</string>
+    <string name="in_blacklist">In Blacklist</string>
+</resources>
