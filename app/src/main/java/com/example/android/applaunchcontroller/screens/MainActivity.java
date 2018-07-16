@@ -106,9 +106,11 @@ public class MainActivity extends BaseActivity implements InstalledAppsAdapter.I
         final boolean isDontDisturbModeStarted = getUserPrefs().isDontDisturbModeStarted();
         if (isDontDisturbModeStarted) {
             updateDontDisturbStatus(false);
+            getApp().showMessageNotification(getString(R.string.notification_stop_msg));
         } else {
             if (isAccessibilityEnabled()) {
                 updateDontDisturbStatus(true);
+                getApp().showMessageNotification(getString(R.string.notification_start_msg));
             } else {
                 startWindowChangeDetectionService();
             }
@@ -136,6 +138,7 @@ public class MainActivity extends BaseActivity implements InstalledAppsAdapter.I
         if (requestCode == REQUEST_RESULT_ACCESSIBILITY_SERVICE) {
             if (isAccessibilityEnabled()) {
                 updateDontDisturbStatus(true);
+                getApp().showMessageNotification(getString(R.string.notification_start_msg));
             } else {
                 showAccesibilityEnableAlertDialog();
             }

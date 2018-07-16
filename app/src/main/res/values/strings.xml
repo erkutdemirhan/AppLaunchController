@@ -8,5 +8,7 @@
     <string name="warning">Warning</string>
     <string name="msg_accessibility">Please enable accessibility for the AppLaunchController in order to start do not disturb mode</string>
     <string name="notification_title">@string/app_name</string>
-    <string name="notification_message">%s is in the blacklist</string>
+    <string name="notification_blacklist_msg">%s is in the blacklist</string>
+    <string name="notification_start_msg">Do not disturb mode started!</string>
+    <string name="notification_stop_msg">Do not disturb mode stopped!</string>
 </resources>

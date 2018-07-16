@@ -10,6 +10,10 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.HashSet;
 
+/**
+ * This class implements shared preferences to save blacklisted apps
+ * and do not disturb mode status
+ */
 public class UserPreferences {
 
     private static final String PREFS_KEY = "key.user.prefs";

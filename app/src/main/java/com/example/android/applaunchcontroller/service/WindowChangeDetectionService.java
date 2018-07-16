@@ -3,22 +3,19 @@ package com.example.android.applaunchcontroller.service;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.media.RingtoneManager;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.view.accessibility.AccessibilityEvent;
 
 import com.example.android.applaunchcontroller.AppLaunchController;
-import com.example.android.applaunchcontroller.R;
 import com.example.android.applaunchcontroller.screens.MainActivity;
 import com.example.android.applaunchcontroller.utils.UserPreferences;
 
 
+/**
+ *  An {@link AccessibilityService} class to listen for changes on the foreground and retrieve package name of
+ *  the application showing up the screen. The package name is queried for being in the black list. If so,
+ *  a notification is being shown and the {@link MainActivity} is started.
+ */
 public class WindowChangeDetectionService extends AccessibilityService {
-
-    private static final String CHANNEL_ID = "com.applaunchcontroller.channel.id";
 
     @Override
     protected void onServiceConnected() {
@@ -39,41 +36,20 @@ public class WindowChangeDetectionService extends AccessibilityService {
                 if (event.getPackageName() != null) {
                     final String packageName = event.getPackageName().toString();
                     if (getUserPrefs().isInBlackList(packageName)) {
-                        showNotification(packageName);
+                        getApp().showBlackListNotification(packageName);
                         gotoMainScreen();
                     }
                 }
             }
-
         }
     }
 
-    private void showNotification(final String packageName) {
-        String appLabel = getAppLabel(packageName);
-        appLabel = appLabel.isEmpty() ? "This app":appLabel;
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setContentTitle(getString(R.string.notification_title))
-                .setContentText(getString(R.string.notification_message, appLabel))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
-        notificationManagerCompat.notify(packageName.hashCode(), notificationBuilder.build());
-    }
-
-    private String getAppLabel(final String packageName) {
-        PackageManager pm = getPackageManager();
-        ApplicationInfo appInfo = null;
-        try {
-            appInfo = pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
-        } catch (PackageManager.NameNotFoundException ignored) {}
-        return (appInfo != null) ? (String) pm.getApplicationLabel(appInfo) : "";
-    }
-
     private UserPreferences getUserPrefs() {
-        return ((AppLaunchController) getApplication()).getUserPreferences();
+        return getApp().getUserPreferences();
+    }
+
+    private AppLaunchController getApp() {
+        return ((AppLaunchController) getApplication());
     }
 
     private void gotoMainScreen() {
