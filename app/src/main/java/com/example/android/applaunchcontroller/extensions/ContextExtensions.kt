@@ -3,9 +3,11 @@ package com.example.android.applaunchcontroller.extensions
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import android.media.RingtoneManager
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
+import android.support.v4.content.ContextCompat
 import com.example.android.applaunchcontroller.R
 
 const val NOTIFICATION_CHANNEL_ID = "com.applaunchcontroller.channel.id"
@@ -16,8 +18,16 @@ fun Context.getAppLabel(packageName: String): String {
     } catch (e: PackageManager.NameNotFoundException) {
         null
     }
+    return getAppLabel(appInfo)
+}
+
+fun Context.getAppLabel(appInfo:ApplicationInfo?): String {
     return if (appInfo != null) packageManager.getApplicationLabel(appInfo) as String
     else getString(R.string.this_app)
+}
+
+fun Context.getDrawableFromResId(drawableResId:Int):Drawable? {
+    return ContextCompat.getDrawable(this, drawableResId)
 }
 
 fun Context.showNotification(titleStr: String, messageStr: String, notificationId: Int) {
