@@ -11,4 +11,5 @@
     <string name="notification_blacklist_msg">%s is in the blacklist</string>
     <string name="notification_start_msg">Do not disturb mode started!</string>
     <string name="notification_stop_msg">Do not disturb mode stopped!</string>
+    <string name="this_app">This app</string>
 </resources>
